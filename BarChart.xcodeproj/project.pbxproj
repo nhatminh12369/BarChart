@@ -12,6 +12,9 @@
 		D7E5387A1F483B5D00D14995 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7E538781F483B5D00D14995 /* Main.storyboard */; };
 		D7E5387C1F483B5D00D14995 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7E5387B1F483B5D00D14995 /* Assets.xcassets */; };
 		D7E5387F1F483B5D00D14995 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7E5387D1F483B5D00D14995 /* LaunchScreen.storyboard */; };
+		D7E538871F483BBF00D14995 /* BeautifulBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E538861F483BBF00D14995 /* BeautifulBarChart.swift */; };
+		D7E538891F483BF100D14995 /* ColumnEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E538881F483BF100D14995 /* ColumnEntry.swift */; };
+		D7E5388B1F483C4500D14995 /* BasicBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E5388A1F483C4400D14995 /* BasicBarChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		D7E5387B1F483B5D00D14995 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7E5387E1F483B5D00D14995 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7E538801F483B5D00D14995 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D7E538861F483BBF00D14995 /* BeautifulBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeautifulBarChart.swift; sourceTree = "<group>"; };
+		D7E538881F483BF100D14995 /* ColumnEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnEntry.swift; sourceTree = "<group>"; };
+		D7E5388A1F483C4400D14995 /* BasicBarChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicBarChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,7 @@
 		D7E538731F483B5D00D14995 /* BarChart */ = {
 			isa = PBXGroup;
 			children = (
+				D7F485331F4AA79300348260 /* BarChart */,
 				D7E538741F483B5D00D14995 /* AppDelegate.swift */,
 				D7E538761F483B5D00D14995 /* ViewController.swift */,
 				D7E538781F483B5D00D14995 /* Main.storyboard */,
@@ -62,6 +69,16 @@
 				D7E538801F483B5D00D14995 /* Info.plist */,
 			);
 			path = BarChart;
+			sourceTree = "<group>";
+		};
+		D7F485331F4AA79300348260 /* BarChart */ = {
+			isa = PBXGroup;
+			children = (
+				D7E538881F483BF100D14995 /* ColumnEntry.swift */,
+				D7E538861F483BBF00D14995 /* BeautifulBarChart.swift */,
+				D7E5388A1F483C4400D14995 /* BasicBarChart.swift */,
+			);
+			name = BarChart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +154,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7E538891F483BF100D14995 /* ColumnEntry.swift in Sources */,
 				D7E538771F483B5D00D14995 /* ViewController.swift in Sources */,
+				D7E5388B1F483C4500D14995 /* BasicBarChart.swift in Sources */,
 				D7E538751F483B5D00D14995 /* AppDelegate.swift in Sources */,
+				D7E538871F483BBF00D14995 /* BeautifulBarChart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +324,7 @@
 				D7E538851F483B5D00D14995 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
