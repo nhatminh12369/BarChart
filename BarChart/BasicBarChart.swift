@@ -9,22 +9,34 @@
 import UIKit
 
 class BasicBarChart: UIView {
+    
+    /// the width of each bar
     let barWidth: CGFloat = 40.0
+    
+    /// space between each bar
     let space: CGFloat = 20.0
     
+    /// space at the bottom of the bar to show the title
     private let bottomSpace: CGFloat = 40.0
+    
+    /// space at the top of each bar to show the value
     private let topSpace: CGFloat = 40.0
     
+    /// contain all layers of the chart
     private let mainLayer: CALayer = CALayer()
+    
+    /// contain mainLayer to support scrolling
     private let scrollView: UIScrollView = UIScrollView()
     
-    var dataEntries: [ColumnEntry]? = nil {
+    var dataEntries: [BarEntry]? = nil {
         didSet {
             mainLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
             
             if let dataEntries = dataEntries {
                 scrollView.contentSize = CGSize(width: (barWidth + space)*CGFloat(dataEntries.count), height: self.frame.size.height)
                 mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+                
+                drawHorizontalLines()
                 
                 for i in 0..<dataEntries.count {
                     showEntry(index: i, entry: dataEntries[i])
@@ -57,14 +69,12 @@ class BasicBarChart: UIView {
         scrollView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
     }
     
-    private func showEntry(index: Int, entry: ColumnEntry) {
+    private func showEntry(index: Int, entry: BarEntry) {
         /// Starting x postion of the bar
         let xPos: CGFloat = space + CGFloat(index) * (barWidth + space)
         
         /// Starting y postion of the bar
-        let yPos: CGFloat = translateValueToYPosition(value: entry.height)
-        
-        drawGridLines()
+        let yPos: CGFloat = translateHeightValueToYPosition(value: entry.height)
         
         drawBar(xPos: xPos, yPos: yPos, color: entry.color)
         
@@ -82,11 +92,16 @@ class BasicBarChart: UIView {
         mainLayer.addSublayer(barLayer)
     }
     
-    private func drawGridLines() {
-        let gridLineInfos = [["value": Float(0.0), "dashed": false], ["value": Float(0.5), "dashed": true], ["value": Float(1.0), "dashed": false]]
-        for lineInfo in gridLineInfos {
+    private func drawHorizontalLines() {
+        self.layer.sublayers?.forEach({
+            if $0 is CAShapeLayer {
+                $0.removeFromSuperlayer()
+            }
+        })
+        let horizontalLineInfos = [["value": Float(0.0), "dashed": false], ["value": Float(0.5), "dashed": true], ["value": Float(1.0), "dashed": false]]
+        for lineInfo in horizontalLineInfos {
             let xPos = CGFloat(0.0)
-            let yPos = translateValueToYPosition(value: (lineInfo["value"] as! Float))
+            let yPos = translateHeightValueToYPosition(value: (lineInfo["value"] as! Float))
             let path = UIBezierPath()
             path.move(to: CGPoint(x: xPos, y: yPos))
             path.addLine(to: CGPoint(x: scrollView.frame.size.width, y: yPos))
@@ -127,7 +142,7 @@ class BasicBarChart: UIView {
         mainLayer.addSublayer(textLayer)
     }
     
-    private func translateValueToYPosition(value: Float) -> CGFloat {
+    private func translateHeightValueToYPosition(value: Float) -> CGFloat {
         let height: CGFloat = CGFloat(value) * (mainLayer.frame.height - bottomSpace - topSpace)
         return mainLayer.frame.height - bottomSpace - height
     }

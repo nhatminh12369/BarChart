@@ -1,6 +1,6 @@
 //
-//  ColumnEntry.swift
-//  ColumnChart
+//  BarEntry.swift
+//  BarChart
 //
 //  Created by Nguyen Vu Nhat Minh on 16/8/17.
 //  Copyright © 2017 Nguyen Vu Nhat Minh. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct ColumnEntry {
+struct BarEntry {
     let color: UIColor
     
     /// Ranged from 0.0 to 1.0

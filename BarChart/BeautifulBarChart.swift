@@ -1,6 +1,6 @@
 //
-//  BeautifulColumnChartView.swift
-//  ColumnChart
+//  BeautifulBarChartView.swift
+//  BarChart
 //
 //  Created by Nguyen Vu Nhat Minh on 16/8/17.
 //  Copyright © 2017 Nguyen Vu Nhat Minh. All rights reserved.
@@ -23,7 +23,7 @@ class BeautifulBarChart: UIView {
     private let mainLayer: CALayer = CALayer()
     private let scrollView: UIScrollView = UIScrollView()
     
-    var dataEntries: [ColumnEntry]? = nil {
+    var dataEntries: [BarEntry]? = nil {
         didSet {
             mainLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
             
@@ -62,7 +62,7 @@ class BeautifulBarChart: UIView {
         scrollView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
     }
     
-    private func showEntry(index: Int, entry: ColumnEntry) {
+    private func showEntry(index: Int, entry: BarEntry) {
         let height: CGFloat = CGFloat(entry.height) * (mainLayer.frame.height - bottomSpace - topSpace)
         
         /// Starting x postion of the bar
@@ -74,7 +74,7 @@ class BeautifulBarChart: UIView {
         drawBar(xPos: xPos, yPos: yPos, height: height, color: entry.color)
         
         /// Draw the top bubble
-        drawTopBuble(xPos: xPos+barWidth/2-topBubbleRadius, yPos: yPos - height - 80, color: entry.color)
+        drawTopBuble(xPos: xPos+barWidth/2-topBubbleRadius, yPos: round(yPos - height - 80), color: entry.color)
         
         /// Draw the line that connect top of the bar to the top bubble
         drawLinkingLine(xPos: xPos+barWidth/2, yPos: yPos - height - 4, color: entry.color)
