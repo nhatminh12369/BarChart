@@ -79,8 +79,8 @@
 		D798ECA62295774C001276C0 /* BeautifulBarChart */ = {
 			isa = PBXGroup;
 			children = (
-				D798EC982293F5FA001276C0 /* BeautifulBarChartPresenter.swift */,
 				D7E538861F483BBF00D14995 /* BeautifulBarChart.swift */,
+				D798EC982293F5FA001276C0 /* BeautifulBarChartPresenter.swift */,
 				D798ECA1229500CB001276C0 /* BeautifulBarEntry.swift */,
 			);
 			name = BeautifulBarChart;

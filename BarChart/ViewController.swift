@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         basicBarChart.updateDataEntries(dataEntries: dataEntries, animated: false)
         barChart.updateDataEntries(dataEntries: dataEntries, animated: false)
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) {[unowned self] (timer) in
+        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) {[unowned self] (timer) in
             let dataEntries = self.generateRandomDataEntries()
             self.barChart.updateDataEntries(dataEntries: dataEntries, animated: true)
             self.basicBarChart.updateDataEntries(dataEntries: dataEntries, animated: true)
@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     
     func generateEmptyDataEntries() -> [DataEntry] {
         var result: [DataEntry] = []
-        [0..<numEntry].forEach {_ in
+        Array(0..<numEntry).forEach {_ in
             result.append(DataEntry(color: UIColor.clear, height: 0, textValue: "0", title: ""))
         }
         return result

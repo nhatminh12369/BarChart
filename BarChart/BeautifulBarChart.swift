@@ -46,6 +46,7 @@ class BeautifulBarChart: UIView {
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         self.updateDataEntries(dataEntries: presenter.dataEntries, animated: false)
     }
     

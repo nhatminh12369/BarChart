@@ -62,6 +62,7 @@ class BasicBarChart: UIView {
     }
     
     override func layoutSubviews() {
+        super.layoutSubviews()
         self.updateDataEntries(dataEntries: presenter.dataEntries, animated: false)
     }
     
@@ -89,5 +90,5 @@ class BasicBarChart: UIView {
         lines.forEach { (line) in
             mainLayer.addLineLayer(lineSegment: line.segment, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).cgColor, width: line.width, isDashed: line.isDashed, animated: false, oldSegment: nil)
         }
-    }    
+    }
 }
