@@ -9,49 +9,39 @@
 import UIKit
 
 class BasicBarChart: UIView {
-    
-    /// the width of each bar
-    let barWidth: CGFloat = 40.0
-    
-    /// space between each bar
-    let space: CGFloat = 20.0
-    
-    /// space at the bottom of the bar to show the title
-    private let bottomSpace: CGFloat = 40.0
-    
-    /// space at the top of each bar to show the value
-    private let topSpace: CGFloat = 40.0
-    
     /// contain all layers of the chart
     private let mainLayer: CALayer = CALayer()
     
     /// contain mainLayer to support scrolling
     private let scrollView: UIScrollView = UIScrollView()
     
-    var dataEntries: [BarEntry]? = nil {
+    private var animated = false
+    
+    private let presenter = BasicBarChartPresenter(barWidth: 40, space: 20)
+    
+    private var barEntries: [BasicBarEntry] = [] {
         didSet {
             mainLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
             
-            if let dataEntries = dataEntries {
-                scrollView.contentSize = CGSize(width: (barWidth + space)*CGFloat(dataEntries.count), height: self.frame.size.height)
-                mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
-                
-                drawHorizontalLines()
-                
-                for i in 0..<dataEntries.count {
-                    showEntry(index: i, entry: dataEntries[i])
-                }
+            scrollView.contentSize = CGSize(width: presenter.computeContentWidth(), height: self.frame.size.height)
+            mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
+            
+            drawHorizontalLines()
+            
+            for i in 0..<barEntries.count {
+                showEntry(index: i, entry: barEntries[i], animated: animated, oldEntry: (i < oldValue.count ? oldValue[i] : nil))
             }
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
+    func updateDataEntries(dataEntries: [DataEntry], animated: Bool) {
+        self.animated = animated
+        self.presenter.dataEntries = dataEntries
+        self.barEntries = self.presenter.computeBarEntries(viewHeight: self.frame.height)
     }
     
-    convenience init() {
-        self.init(frame: CGRect.zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupView()
     }
     
@@ -63,33 +53,30 @@ class BasicBarChart: UIView {
     private func setupView() {
         scrollView.layer.addSublayer(mainLayer)
         self.addSubview(scrollView)
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
     }
     
     override func layoutSubviews() {
-        scrollView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
+        self.updateDataEntries(dataEntries: presenter.dataEntries, animated: false)
     }
     
-    private func showEntry(index: Int, entry: BarEntry) {
-        /// Starting x postion of the bar
-        let xPos: CGFloat = space + CGFloat(index) * (barWidth + space)
+    private func showEntry(index: Int, entry: BasicBarEntry, animated: Bool, oldEntry: BasicBarEntry?) {
         
-        /// Starting y postion of the bar
-        let yPos: CGFloat = translateHeightValueToYPosition(value: entry.height)
+        let cgColor = entry.data.color.cgColor
         
-        drawBar(xPos: xPos, yPos: yPos, color: entry.color)
-        
-        /// Draw text above the bar
-        drawTextValue(xPos: xPos - space/2, yPos: yPos - 30, textValue: entry.textValue, color: entry.color)
-        
-        /// Draw text below the bar
-        drawTitle(xPos: xPos - space/2, yPos: mainLayer.frame.height - bottomSpace + 10, title: entry.title, color: entry.color)
-    }
-    
-    private func drawBar(xPos: CGFloat, yPos: CGFloat, color: UIColor) {
-        let barLayer = CALayer()
-        barLayer.frame = CGRect(x: xPos, y: yPos, width: barWidth, height: mainLayer.frame.height - bottomSpace - yPos)
-        barLayer.backgroundColor = color.cgColor
-        mainLayer.addSublayer(barLayer)
+        // Show the main bar
+        mainLayer.addRectangleLayer(frame: entry.barFrame, color: cgColor, animated: animated, oldFrame: oldEntry?.barFrame)
+
+        // Show an Int value above the bar
+        mainLayer.addTextLayer(frame: entry.textValueFrame, color: cgColor, fontSize: 14, text: entry.data.textValue, animated: animated, oldFrame: oldEntry?.textValueFrame)
+
+        // Show a title below the bar
+        mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: cgColor, fontSize: 14, text: entry.data.title, animated: animated, oldFrame: oldEntry?.bottomTitleFrame)
     }
     
     private func drawHorizontalLines() {
@@ -98,52 +85,9 @@ class BasicBarChart: UIView {
                 $0.removeFromSuperlayer()
             }
         })
-        let horizontalLineInfos = [["value": Float(0.0), "dashed": false], ["value": Float(0.5), "dashed": true], ["value": Float(1.0), "dashed": false]]
-        for lineInfo in horizontalLineInfos {
-            let xPos = CGFloat(0.0)
-            let yPos = translateHeightValueToYPosition(value: (lineInfo["value"] as! Float))
-            let path = UIBezierPath()
-            path.move(to: CGPoint(x: xPos, y: yPos))
-            path.addLine(to: CGPoint(x: scrollView.frame.size.width, y: yPos))
-            let lineLayer = CAShapeLayer()
-            lineLayer.path = path.cgPath
-            lineLayer.lineWidth = 0.5
-            if lineInfo["dashed"] as! Bool {
-                lineLayer.lineDashPattern = [4, 4]
-            }
-            lineLayer.strokeColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).cgColor
-            self.layer.insertSublayer(lineLayer, at: 0)
+        let lines = presenter.computeHorizontalLines(viewHeight: self.frame.height)
+        lines.forEach { (line) in
+            mainLayer.addLineLayer(lineSegment: line.segment, color: #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1).cgColor, width: line.width, isDashed: line.isDashed, animated: false, oldSegment: nil)
         }
-    }
-    
-    private func drawTextValue(xPos: CGFloat, yPos: CGFloat, textValue: String, color: UIColor) {
-        let textLayer = CATextLayer()
-        textLayer.frame = CGRect(x: xPos, y: yPos, width: barWidth+space, height: 22)
-        textLayer.foregroundColor = color.cgColor
-        textLayer.backgroundColor = UIColor.clear.cgColor
-        textLayer.alignmentMode = kCAAlignmentCenter
-        textLayer.contentsScale = UIScreen.main.scale
-        textLayer.font = CTFontCreateWithName(UIFont.systemFont(ofSize: 0).fontName as CFString, 0, nil)
-        textLayer.fontSize = 14
-        textLayer.string = textValue
-        mainLayer.addSublayer(textLayer)
-    }
-    
-    private func drawTitle(xPos: CGFloat, yPos: CGFloat, title: String, color: UIColor) {
-        let textLayer = CATextLayer()
-        textLayer.frame = CGRect(x: xPos, y: yPos, width: barWidth + space, height: 22)
-        textLayer.foregroundColor = color.cgColor
-        textLayer.backgroundColor = UIColor.clear.cgColor
-        textLayer.alignmentMode = kCAAlignmentCenter
-        textLayer.contentsScale = UIScreen.main.scale
-        textLayer.font = CTFontCreateWithName(UIFont.systemFont(ofSize: 0).fontName as CFString, 0, nil)
-        textLayer.fontSize = 14
-        textLayer.string = title
-        mainLayer.addSublayer(textLayer)
-    }
-    
-    private func translateHeightValueToYPosition(value: Float) -> CGFloat {
-        let height: CGFloat = CGFloat(value) * (mainLayer.frame.height - bottomSpace - topSpace)
-        return mainLayer.frame.height - bottomSpace - height
-    }
+    }    
 }
