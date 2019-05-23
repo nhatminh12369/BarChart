@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,27 +18,23 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wS6-br-Re1" customClass="BasicBarChart" customModule="BarChart" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="389"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="s13-oM-bcb"/>
-                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAH-ct-PCd" customClass="BeautifulBarChart" customModule="BarChart" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="340" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="453" width="414" height="389"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="nqh-Kv-SdK"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="uAH-ct-PCd" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="946-rY-uT3"/>
+                            <constraint firstItem="uAH-ct-PCd" firstAttribute="height" secondItem="wS6-br-Re1" secondAttribute="height" id="Dpv-4v-Mqd"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="uAH-ct-PCd" secondAttribute="bottom" constant="20" id="I25-AQ-ckq"/>
                             <constraint firstAttribute="trailing" secondItem="wS6-br-Re1" secondAttribute="trailing" id="ZIO-tZ-Wag"/>
                             <constraint firstAttribute="trailing" secondItem="uAH-ct-PCd" secondAttribute="trailing" id="c7x-Tl-Ee7"/>
                             <constraint firstItem="wS6-br-Re1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dPn-Ev-eLw"/>
