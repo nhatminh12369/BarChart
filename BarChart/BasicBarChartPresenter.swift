@@ -38,9 +38,9 @@ class BasicBarChartPresenter {
             let entryHeight = CGFloat(dataEntries[i].height) * (viewHeight - bottomSpace - topSpace)
             let xPosition: CGFloat = space + CGFloat(i) * (barWidth + space)
             let yPosition = viewHeight - bottomSpace - entryHeight
-            let barBottomLeftPoint = CGPoint(x: xPosition, y: yPosition)
+            let origin = CGPoint(x: xPosition, y: yPosition)
             
-            let barEntry = BasicBarEntry(position: barBottomLeftPoint, barWidth: barWidth, barHeight: entryHeight, space: space, data: dataEntries[i])
+            let barEntry = BasicBarEntry(origin: origin, barWidth: barWidth, barHeight: entryHeight, space: space, data: dataEntries[i])
             
             result.append(barEntry)
         }

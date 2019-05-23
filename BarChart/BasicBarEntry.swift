@@ -10,22 +10,22 @@ import Foundation
 import CoreGraphics.CGGeometry
 
 struct BasicBarEntry {
-    let position: CGPoint
+    let origin: CGPoint
     let barWidth: CGFloat
     let barHeight: CGFloat
     let space: CGFloat
     let data: DataEntry
     
     var bottomTitleFrame: CGRect {
-        return CGRect(x: position.x - space/2, y: position.y + 10 + barHeight, width: barWidth + space, height: 22)
+        return CGRect(x: origin.x - space/2, y: origin.y + 10 + barHeight, width: barWidth + space, height: 22)
     }
     
     var textValueFrame: CGRect {
-        return CGRect(x: position.x - space/2, y: position.y - 30, width: barWidth + space, height: 22)
+        return CGRect(x: origin.x - space/2, y: origin.y - 30, width: barWidth + space, height: 22)
     }
     
     var barFrame: CGRect {
-        return CGRect(x: position.x, y: position.y, width: barWidth, height: barHeight)
+        return CGRect(x: origin.x, y: origin.y, width: barWidth, height: barHeight)
     }
 }
 
