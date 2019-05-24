@@ -12,6 +12,8 @@ import CoreGraphics.CGGeometry
 class BasicBarChartPresenter {
     /// the width of each bar
     let barWidth: CGFloat
+    
+    /// the space between bars
     let space: CGFloat
     
     /// space at the bottom of the bar to show the title

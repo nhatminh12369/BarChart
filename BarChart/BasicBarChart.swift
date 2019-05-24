@@ -15,10 +15,13 @@ class BasicBarChart: UIView {
     /// contain mainLayer to support scrolling
     private let scrollView: UIScrollView = UIScrollView()
     
+    /// A flag to indicate whether or not to animate the bar chart when its data entries changed
     private var animated = false
     
+    /// Responsible for compute all positions and frames of all elements represent on the bar chart
     private let presenter = BasicBarChartPresenter(barWidth: 40, space: 20)
     
+    /// An array of bar entries. Each BasicBarEntry contain information about line segments, curved line segments, positions and frames of all elements on a bar.
     private var barEntries: [BasicBarEntry] = [] {
         didSet {
             mainLayer.sublayers?.forEach({$0.removeFromSuperlayer()})
@@ -26,7 +29,7 @@ class BasicBarChart: UIView {
             scrollView.contentSize = CGSize(width: presenter.computeContentWidth(), height: self.frame.size.height)
             mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             
-            drawHorizontalLines()
+            showHorizontalLines()
             
             for i in 0..<barEntries.count {
                 showEntry(index: i, entry: barEntries[i], animated: animated, oldEntry: (i < oldValue.count ? oldValue[i] : nil))
@@ -80,7 +83,7 @@ class BasicBarChart: UIView {
         mainLayer.addTextLayer(frame: entry.bottomTitleFrame, color: cgColor, fontSize: 14, text: entry.data.title, animated: animated, oldFrame: oldEntry?.bottomTitleFrame)
     }
     
-    private func drawHorizontalLines() {
+    private func showHorizontalLines() {
         self.layer.sublayers?.forEach({
             if $0 is CAShapeLayer {
                 $0.removeFromSuperlayer()
