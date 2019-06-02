@@ -32,12 +32,12 @@ class BeautifulBarChartPresenter {
     func computeBarEntries(viewHeight: CGFloat) -> [BeautifulBarEntry] {
         var result: [BeautifulBarEntry] = []
         
-        for i in 0..<dataEntries.count {
-            let entryHeight = CGFloat(dataEntries[i].height) * (viewHeight - bottomSpace - topSpace)
-            let xPosition: CGFloat = CGFloat(i) * (barWidth + space)
+        for (index, entry) in dataEntries.enumerated() {
+            let entryHeight = CGFloat(entry.height) * (viewHeight - bottomSpace - topSpace)
+            let xPosition: CGFloat = CGFloat(index) * (barWidth + space)
             let yPosition = viewHeight - bottomSpace - entryHeight
             
-            let barEntry = BeautifulBarEntry(origin: CGPoint(x: xPosition, y: yPosition), barWidth: barWidth, barHeight: entryHeight, data: dataEntries[i])
+            let barEntry = BeautifulBarEntry(origin: CGPoint(x: xPosition, y: yPosition), barWidth: barWidth, barHeight: entryHeight, data: entry)
             
             result.append(barEntry)
         }

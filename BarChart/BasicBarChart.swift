@@ -31,8 +31,8 @@ class BasicBarChart: UIView {
             
             showHorizontalLines()
             
-            for i in 0..<barEntries.count {
-                showEntry(index: i, entry: barEntries[i], animated: animated, oldEntry: (i < oldValue.count ? oldValue[i] : nil))
+            for (index, entry) in barEntries.enumerated() {
+                showEntry(index: index, entry: entry, animated: animated, oldEntry: oldValue.safeValue(at: index))
             }
         }
     }

@@ -23,8 +23,8 @@ class BeautifulBarChart: UIView {
             scrollView.contentSize = CGSize(width: presenter.computeContentWidth(), height: self.frame.size.height)
             mainLayer.frame = CGRect(x: 0, y: 0, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
             
-            for i in 0..<barEntries.count {
-                showEntry(index: i, barEntry: barEntries[i], animated: animated, oldEntry: (i < oldValue.count ? oldValue[i] : nil))
+            for (index, entry) in barEntries.enumerated() {
+                showEntry(index: index, barEntry: entry, animated: animated, oldEntry: oldValue.safeValue(at: index))
             }
         }
     }
@@ -65,17 +65,15 @@ class BeautifulBarChart: UIView {
         let cgColor = barEntry.data.color.cgColor
         
         // Create the curved bar for an entry
-        for i in 0..<barEntry.mainBarEntry.curvedSegments.count {
-            let newSegment = barEntry.mainBarEntry.curvedSegments[i]
-            let oldSegment = oldEntry?.mainBarEntry.curvedSegments[i]
-            mainLayer.addCurvedLayer(curvedSegment: newSegment, color: cgColor, animated: animated, oldSegment: oldSegment)
+        for (index, entry) in barEntry.mainBarEntry.curvedSegments.enumerated() {
+            let oldSegment = oldEntry?.mainBarEntry.curvedSegments[index]
+            mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
         }
         
         /// Create the top bubble
-        for i in 0..<barEntry.topBubbleEntry.curvedSegments.count {
-            let newSegment = barEntry.topBubbleEntry.curvedSegments[i]
-            let oldSegment = oldEntry?.topBubbleEntry.curvedSegments[i]
-            mainLayer.addCurvedLayer(curvedSegment: newSegment, color: cgColor, animated: animated, oldSegment: oldSegment)
+        for (index, entry) in barEntry.topBubbleEntry.curvedSegments.enumerated() {
+            let oldSegment = oldEntry?.topBubbleEntry.curvedSegments[index]
+            mainLayer.addCurvedLayer(curvedSegment: entry, color: cgColor, animated: animated, oldSegment: oldSegment)
         }
         
         /// Create the text above the bar, inside the top bubble

@@ -16,6 +16,7 @@
 		D798ECAC2295788F001276C0 /* BeautifulBarChartPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D798EC982293F5FA001276C0 /* BeautifulBarChartPresenter.swift */; };
 		D798ECAD2295788F001276C0 /* BeautifulBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E538861F483BBF00D14995 /* BeautifulBarChart.swift */; };
 		D798ECAE2295788F001276C0 /* BeautifulBarEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D798ECA1229500CB001276C0 /* BeautifulBarEntry.swift */; };
+		D7C514DE22A404B40016347F /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C514DD22A404B40016347F /* ArrayExtension.swift */; };
 		D7E538751F483B5D00D14995 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E538741F483B5D00D14995 /* AppDelegate.swift */; };
 		D7E538771F483B5D00D14995 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E538761F483B5D00D14995 /* ViewController.swift */; };
 		D7E5387A1F483B5D00D14995 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7E538781F483B5D00D14995 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		D798ECA1229500CB001276C0 /* BeautifulBarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautifulBarEntry.swift; sourceTree = "<group>"; };
 		D798ECA322950127001276C0 /* BasicBarEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicBarEntry.swift; sourceTree = "<group>"; };
 		D798ECA72295781D001276C0 /* CustomSegments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegments.swift; sourceTree = "<group>"; };
+		D7C514DD22A404B40016347F /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		D7E538711F483B5D00D14995 /* BarChart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BarChart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7E538741F483B5D00D14995 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7E538761F483B5D00D14995 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				D798ECA72295781D001276C0 /* CustomSegments.swift */,
 				D798EC9B229404BF001276C0 /* UIBezierPathExtension.swift */,
 				D798EC9D229404E6001276C0 /* CALayerExtension.swift */,
+				D7C514DD22A404B40016347F /* ArrayExtension.swift */,
 			);
 			name = Shared;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				D798ECA922957871001276C0 /* BasicBarChart.swift in Sources */,
 				D798ECAE2295788F001276C0 /* BeautifulBarEntry.swift in Sources */,
 				D798EC9E229404E6001276C0 /* CALayerExtension.swift in Sources */,
+				D7C514DE22A404B40016347F /* ArrayExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

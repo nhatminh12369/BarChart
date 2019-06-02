@@ -36,13 +36,13 @@ class BasicBarChartPresenter {
     func computeBarEntries(viewHeight: CGFloat) -> [BasicBarEntry] {
         var result: [BasicBarEntry] = []
         
-        for i in 0..<dataEntries.count {
-            let entryHeight = CGFloat(dataEntries[i].height) * (viewHeight - bottomSpace - topSpace)
-            let xPosition: CGFloat = space + CGFloat(i) * (barWidth + space)
+        for (index, entry) in dataEntries.enumerated() {
+            let entryHeight = CGFloat(entry.height) * (viewHeight - bottomSpace - topSpace)
+            let xPosition: CGFloat = space + CGFloat(index) * (barWidth + space)
             let yPosition = viewHeight - bottomSpace - entryHeight
             let origin = CGPoint(x: xPosition, y: yPosition)
             
-            let barEntry = BasicBarEntry(origin: origin, barWidth: barWidth, barHeight: entryHeight, space: space, data: dataEntries[i])
+            let barEntry = BasicBarEntry(origin: origin, barWidth: barWidth, barHeight: entryHeight, space: space, data: entry)
             
             result.append(barEntry)
         }
